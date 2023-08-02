@@ -38,7 +38,7 @@ class PaykeeperPayment
         return array_key_exists($value, $this->order_params) ? $this->order_params["$value"] : False;
     }
 
-    public function updateFiscalCart($ftype, $name="", $price=0, $quantity=0, $sum=0, $tax="none")
+    public function updateFiscalCart($ftype, $name="", $price=0, $quantity=0, $sum=0, $tax="none", $item_type="goods")
     {
         //update fz54 cart
         if ($ftype === "create") 
@@ -54,8 +54,29 @@ class PaykeeperPayment
             "price" => $price_to_add,
             "quantity" => $quantity,
             "sum" => $sum_to_add,
-            "tax" => $tax
+            "tax" => $tax,
+            "item_type" => $item_type
         );
+    }
+    public function get_type($type_num)
+    {
+        $return="goods";
+        switch ($type_num)
+        {
+            case 1:
+                $return="goods";
+                break;
+            case 2:
+                $return="service";
+                break;
+            case 3:
+                $return="goods";
+                break;
+            default:
+                $return="goods";
+                break;
+        }
+        return $return ;
     }
 
     public function getFiscalCart()
@@ -364,7 +385,7 @@ class PaykeeperPayment
                     "method"=>"POST",
                     "header"=>
                     "Content-type: application/x-www-form-urlencoded",
-                    "content"=>$query_options
+                    "content"=>$payment_parameters
                     ));
                     $context = stream_context_create($query_options);
                     $form = file_get_contents($this->getOrderParams("form_url"), false, $context);
