@@ -1,5 +1,5 @@
 <?php
-/***/
+/**111**/
 define('C_REST_CLIENT_ID','app.6156f749cb3206.36191493');//Application ID
 define('C_REST_CLIENT_SECRET','tYT5UAhSi1MKhcGXDBDsUqBxFvvadZBpTLS6IMNgLOseYiaOZv');//Application key
 //define('C_REST_CURRENT_ENCODING','windows-1251');
